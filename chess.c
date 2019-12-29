@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cs50.h>
 #include <time.h>
 #include <wchar.h>
 #include <unistd.h>
@@ -219,25 +218,25 @@ int main(void)
     }
 
     // initialize ncurses
-    if (initscr() == NULL)
-    {
-        return false;
-    }
-    if (noecho() == ERR)
-    {
-        endwin();
-        return false;
-    }
-    if (raw() == ERR)
-    {
-        endwin();
-        return false;
-    }
-    if (keypad(stdscr, true) == ERR)
-    {
-        endwin();
-        return false;
-    }
+    // if (initscr() == NULL)
+    // {
+    //     return false;
+    // }
+    // if (noecho() == ERR)
+    // {
+    //     endwin();
+    //     return false;
+    // }
+    // if (raw() == ERR)
+    // {
+    //     endwin();
+    //     return false;
+    // }
+    // if (keypad(stdscr, true) == ERR)
+    // {
+    //     endwin();
+    //     return false;
+    // }
     top = 3;
     left = 3;
 
@@ -248,12 +247,12 @@ int main(void)
     deselectPiece();
 
     // initialize color pairs
-    start_color();
-    init_color(COLOR_BLACK, 1000, 0, 0);
-    init_pair(WHITEPAIR, COLOR_WHITE, COLOR_WHITE);
-    init_pair(BLACKPAIR, COLOR_WHITE, COLOR_BLACK);
-    init_pair(BLUEPAIR, COLOR_WHITE, COLOR_CYAN);
-    init_pair(BOARDPAIR, COLOR_WHITE, COLOR_YELLOW);
+    // start_color();
+    // init_color(COLOR_BLACK, 1000, 0, 0);
+    // init_pair(WHITEPAIR, COLOR_WHITE, COLOR_WHITE);
+    // init_pair(BLACKPAIR, COLOR_WHITE, COLOR_BLACK);
+    // init_pair(BLUEPAIR, COLOR_WHITE, COLOR_CYAN);
+    // init_pair(BOARDPAIR, COLOR_WHITE, COLOR_YELLOW);
 
 
     highlightedPiece[0] = 0;
@@ -692,15 +691,18 @@ void drawBoard(char board[][8])
     highlightedPiece[0] = (highlightedPiece[0] + 8) % 8;
 
     // print grid
-    attron(COLOR_PAIR(BLACKPAIR));
-    for (int i = 0 ; i < 8 ; i++ )
-    {
-        mvaddstr(top + 0 + 3 * i, left, "+-----+-----+-----+-----+-----+-----+-----+-----+");
-        mvaddstr(top + 1 + 3 * i, left, "|     |     |     |     |     |     |     |     |");
-        mvaddstr(top + 2 + 3 * i, left, "|     |     |     |     |     |     |     |     |");
-    }
-    mvaddstr(top + 8 * 3, left, "+-----+-----+-----+-----+-----+-----+-----+-----+" );
-    attroff(COLOR_PAIR(BLACKPAIR));
+    // attron(COLOR_PAIR(BLACKPAIR));
+    // for (int i = 0 ; i < 8 ; i++ )
+    // {
+    //     mvaddstr(top + 0 + 3 * i, left, "+-----+-----+-----+-----+-----+-----+-----+-----+");
+    //     mvaddstr(top + 1 + 3 * i, left, "|     |     |     |     |     |     |     |     |");
+    //     mvaddstr(top + 2 + 3 * i, left, "|     |     |     |     |     |     |     |     |");
+    // }
+    // mvaddstr(top + 8 * 3, left, "+-----+-----+-----+-----+-----+-----+-----+-----+" );
+    // attroff(COLOR_PAIR(BLACKPAIR));
+    // printf("+-----+-----+-----+-----+-----+-----+-----+-----+\n");
+    // printf("|     |     |     |     |     |     |     |     |\n");
+    // printf("|     |     |     |     |     |     |     |     |\n");
 
     // print pieces
     for (int i = 0 ; i < 8 ; i++ )
@@ -718,113 +720,114 @@ void drawBoard(char board[][8])
                         pieceIndex = k;
                     }
                 }
-                mvaddstr(top + 22 - 3 * i, left + 2 + 6 * j, pieces_ascii[pieceIndex]);
+                printf("%d\n", pieceIndex);
+                // mvaddstr(top + 22 - 3 * i, left + 2 + 6 * j, pieces_ascii[pieceIndex]);
 
                 // print the bottom of the piece
                 // all bottoms are the same
-                mvaddstr(top + 23 - 3 * i, left + 2 + 6 * j, "(_)");
+                // mvaddstr(top + 23 - 3 * i, left + 2 + 6 * j, "(_)");
 
                 // color to distinguish between black and white pieces
-                if (getColor(board[j][i]) == 'w')
-                {
-                    attron(COLOR_PAIR(WHITEPAIR));
-                    mvaddstr(top + 23 - 3 * i, left + 3 + 6 * j, "_");
-                    attroff(COLOR_PAIR(WHITEPAIR));
-                }
-                else
-                {
-                    attron(COLOR_PAIR(BLACKPAIR));
-                    mvaddstr(top + 23 - 3 * i, left + 3 + 6 * j, "_");
-                    attroff(COLOR_PAIR(BLACKPAIR));
-                }
-
-                // if the piece is highlighted or select it, color it accordingly
-                if (highlightedPiece[0] == j && highlightedPiece[1] == i)
-                {
-                    attron(COLOR_PAIR(BLUEPAIR));
-                    mvaddstr(top + 22 - 3 * i, left + 2 + 6 * j, pieces_ascii[pieceIndex]);
-                    mvaddstr(top + 23 - 3 * i, left + 2 + 6 * j, "(_)");
-                    attroff(COLOR_PAIR(BLUEPAIR));
-                }
-                if (selectedPiece[0] == j && selectedPiece[1] == i)
-                {
-                    attron(COLOR_PAIR(WHITEPAIR));
-                    mvaddstr(top + 22 - 3 * i, left + 2 + 6 * j, pieces_ascii[pieceIndex]);
-                    mvaddstr(top + 23 - 3 * i, left + 2 + 6 * j, "(_)");
-                    attroff(COLOR_PAIR(BLUEPAIR));
-                }
+                // if (getColor(board[j][i]) == 'w')
+                // {
+                //     attron(COLOR_PAIR(WHITEPAIR));
+                //     mvaddstr(top + 23 - 3 * i, left + 3 + 6 * j, "_");
+                //     attroff(COLOR_PAIR(WHITEPAIR));
+                // }
+                // else
+                // {
+                //     attron(COLOR_PAIR(BLACKPAIR));
+                //     mvaddstr(top + 23 - 3 * i, left + 3 + 6 * j, "_");
+                //     attroff(COLOR_PAIR(BLACKPAIR));
+                // }
+                //
+                // // if the piece is highlighted or select it, color it accordingly
+                // if (highlightedPiece[0] == j && highlightedPiece[1] == i)
+                // {
+                //     attron(COLOR_PAIR(BLUEPAIR));
+                //     mvaddstr(top + 22 - 3 * i, left + 2 + 6 * j, pieces_ascii[pieceIndex]);
+                //     mvaddstr(top + 23 - 3 * i, left + 2 + 6 * j, "(_)");
+                //     attroff(COLOR_PAIR(BLUEPAIR));
+                // }
+                // if (selectedPiece[0] == j && selectedPiece[1] == i)
+                // {
+                //     attron(COLOR_PAIR(WHITEPAIR));
+                //     mvaddstr(top + 22 - 3 * i, left + 2 + 6 * j, pieces_ascii[pieceIndex]);
+                //     mvaddstr(top + 23 - 3 * i, left + 2 + 6 * j, "(_)");
+                //     attroff(COLOR_PAIR(BLUEPAIR));
+                // }
             }
             // if an empty square is highlighted
-            else if (highlightedPiece[0] == j && highlightedPiece[1] == i)
-            {
-                attron(COLOR_PAIR(BLUEPAIR));
-                mvaddstr(top + 22 - 3 * i, left + 2 + 6 * j, "   ");
-                mvaddstr(top + 23 - 3 * i, left + 2 + 6 * j, "   ");
-                attroff(COLOR_PAIR(BLUEPAIR));
-            }
+            // else if (highlightedPiece[0] == j && highlightedPiece[1] == i)
+            // {
+            //     attron(COLOR_PAIR(BLUEPAIR));
+            //     mvaddstr(top + 22 - 3 * i, left + 2 + 6 * j, "   ");
+            //     mvaddstr(top + 23 - 3 * i, left + 2 + 6 * j, "   ");
+            //     attroff(COLOR_PAIR(BLUEPAIR));
+            // }
         }
     }
 
     // gives a few evaluations above the board
     char message[128] = "hello";
     sprintf(message, "Position Eval: %i \t\t Computer Eval: %i \t\t\t", evaluate(&realPosition), computer_eval);
-    mvaddstr(top - 1, left, message);
+    // mvaddstr(top - 1, left, message);
 
     // displays difficulty level selection
 
-    if (highlightedPiece[1] == 8)
-    {
-        if (highlightedPiece[0] % 3 == 0)
-        {
-            attron(COLOR_PAIR(BLUEPAIR));
-            mvaddstr(top + 25, left + 12, "Easy");
-            attroff(COLOR_PAIR(BLUEPAIR));
-            highlightedDifficulty = 3;
-        }
-        else
-        {
-            attron(COLOR_PAIR(BLACKPAIR));
-            mvaddstr(top + 25, left + 12, "Easy");
-            attroff(COLOR_PAIR(BLACKPAIR));
-        }
-        mvaddstr(top + 25, left + 16, "    ");
-        if (highlightedPiece[0] % 3 == 1)
-        {
-            attron(COLOR_PAIR(BLUEPAIR));
-            mvaddstr(top + 25, left + 20, "Medium");
-            attroff(COLOR_PAIR(BLUEPAIR));
-            highlightedDifficulty = 4;
-        }
-        else
-        {
-            attron(COLOR_PAIR(BLACKPAIR));
-            mvaddstr(top + 25, left + 20, "Medium");
-            attroff(COLOR_PAIR(BLACKPAIR));
-        }
-        mvaddstr(top + 25, left + 26, "    ");
-        if (highlightedPiece[0] % 3 == 2)
-        {
-            attron(COLOR_PAIR(BLUEPAIR));
-            mvaddstr(top + 25, left + 30, "Hard");
-            attroff(COLOR_PAIR(BLUEPAIR));
-            highlightedDifficulty = 5;
-        }
-        else
-        {
-            attron(COLOR_PAIR(BLACKPAIR));
-            mvaddstr(top + 25, left + 30, "Hard");
-            attroff(COLOR_PAIR(BLACKPAIR));
-        }
-    }
-    else
-    {
-        attron(COLOR_PAIR(BLACKPAIR));
-        mvaddstr(top + 25, left + 12, "Easy    Medium    Hard");
-        attroff(COLOR_PAIR(BLACKPAIR));
-    }
+    // if (highlightedPiece[1] == 8)
+    // {
+    //     if (highlightedPiece[0] % 3 == 0)
+    //     {
+    //         attron(COLOR_PAIR(BLUEPAIR));
+    //         mvaddstr(top + 25, left + 12, "Easy");
+    //         attroff(COLOR_PAIR(BLUEPAIR));
+    //         highlightedDifficulty = 3;
+    //     }
+    //     else
+    //     {
+    //         attron(COLOR_PAIR(BLACKPAIR));
+    //         mvaddstr(top + 25, left + 12, "Easy");
+    //         attroff(COLOR_PAIR(BLACKPAIR));
+    //     }
+    //     mvaddstr(top + 25, left + 16, "    ");
+    //     if (highlightedPiece[0] % 3 == 1)
+    //     {
+    //         attron(COLOR_PAIR(BLUEPAIR));
+    //         mvaddstr(top + 25, left + 20, "Medium");
+    //         attroff(COLOR_PAIR(BLUEPAIR));
+    //         highlightedDifficulty = 4;
+    //     }
+    //     else
+    //     {
+    //         attron(COLOR_PAIR(BLACKPAIR));
+    //         mvaddstr(top + 25, left + 20, "Medium");
+    //         attroff(COLOR_PAIR(BLACKPAIR));
+    //     }
+    //     mvaddstr(top + 25, left + 26, "    ");
+    //     if (highlightedPiece[0] % 3 == 2)
+    //     {
+    //         attron(COLOR_PAIR(BLUEPAIR));
+    //         mvaddstr(top + 25, left + 30, "Hard");
+    //         attroff(COLOR_PAIR(BLUEPAIR));
+    //         highlightedDifficulty = 5;
+    //     }
+    //     else
+    //     {
+    //         attron(COLOR_PAIR(BLACKPAIR));
+    //         mvaddstr(top + 25, left + 30, "Hard");
+    //         attroff(COLOR_PAIR(BLACKPAIR));
+    //     }
+    // }
+    // else
+    // {
+    //     attron(COLOR_PAIR(BLACKPAIR));
+    //     mvaddstr(top + 25, left + 12, "Easy    Medium    Hard");
+    //     attroff(COLOR_PAIR(BLACKPAIR));
+    // }
 
     // move actual cursor away
-    move(0, 0);
+    // move(0, 0);
 
 }
 
