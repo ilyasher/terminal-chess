@@ -1,8 +1,12 @@
 CC=gcc
-CCFLAGS= # -Wall -Werror
+CCFLAGS= -lncurses #-lm -std=gnu99 # -Wall -Werror
+CHESS_OBJS= chess.o gui.o piece_rules.o
 
-chess: chess.c
-	$(CC) $(CCFLAGS) chess.c -o chess -lncurses -lm -std=gnu99
+# chess: chess.c
+# 	$(CC) $(CCFLAGS) chess.c -o chess -lncurses -lm -std=gnu99
+
+chess: $(CHESS_OBJS)
+	$(CC) $(CCFLAGS) $^ -o $@
 
 clean:
 	rm -f *.o chess
